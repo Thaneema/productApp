@@ -82,12 +82,6 @@ class HomeController extends Controller
         return view('product.edit', compact('product'));
     }
 
-    // public function update(Request $request, $id)
-    // {
-    //     $product = Product::findOrFail($id);
-    //     $product->update($request->all());
-    //     return redirect()->route('home.index');
-    // }
     public function update(Request $request)
     {   
 
@@ -149,8 +143,8 @@ class HomeController extends Controller
 
     public function destroy($id)
     {
-        $product = Product::findOrFail($id);
+        $product = Product::find($id);
         $product->delete();
-        return redirect()->route('home.index');
+        return redirect()->route('home.index')->with('delete',' Deleted Successfully...!!');
     }
 }

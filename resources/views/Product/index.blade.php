@@ -50,6 +50,14 @@
                </div>
             </div>
              @endif
+             @if(Session::has('delete')) 
+             <div class="box-header with-border" id="updateTarget">
+               <div class="alert alert-danger alert-dismissible">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                 Deleted Successfully...!!
+               </div>
+            </div>
+             @endif
         <section class="content">
           <div class="box">
 
@@ -93,9 +101,13 @@
                         </a>
                       </td>
                       <td>
-                        <a href="" class="fa fa-trash" style="color:red" onclick="return confirm('Are you sure?')">
-                        </a>
-                    </td>
+    <a href="{{ route('home.destroy', ['home' => $product->id]) }}" class="fa fa-trash" style="color:red" onclick="event.preventDefault(); if(confirm('Are you sure?')) { document.getElementById('delete-form-{{ $product->id }}').submit(); }">
+    </a>
+    <form id="delete-form-{{ $product->id }}" action="{{ route('home.destroy', ['home' => $product->id]) }}" method="POST" style="display: none;">
+        @csrf
+        @method('DELETE')
+    </form>
+</td>
                     </tr>
                   @endforeach
                 @endif
