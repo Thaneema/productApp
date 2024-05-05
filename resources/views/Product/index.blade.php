@@ -34,13 +34,21 @@
             Product Details
           </h1>
         </section>
+        @if(Session::has('save')) 
+        <div class="box-header with-border">
+            <div class="alert alert-success alert-dismissible">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                Saved Successfully.
+            </div>
+        </div>
+    @endif
         <section class="content">
           <div class="box">
 
             <div class="box-header">
               <h3 class="box-title">Product List</h3>
               <u style="float: right;margin-right: 15px">
-                <i class="fa fa-fw fa-plus" style="color: blue;"></i><a href="" style="font-size: 16px;">New Product</a>
+                <i class="fa fa-fw fa-plus" style="color: blue;"></i><a href="{{route('home.create')}}" style="font-size: 16px;">New Product</a>
               </u>
             </div>
               
@@ -49,8 +57,7 @@
                 <thead >
                   <tr>
                     <th>Sl No.</th>
-                    <th>Product</th>
-                    <th>Name</th>
+                    <th>Product Name</th>
                     <th>Description</th>
                     <th>Image</th>
                     <th>Edit</th>
@@ -58,16 +65,26 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <?php $c = 1;?>
-                  <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                  </tr>
+                <?php $c = 1; ?>
+                @if($products)
+                  @foreach($products as $product)
+                    <tr>
+                      <td>{{$c++}}</td>
+                      <td>{{$product->name}}</td>
+                      <td>{{$product->description}}</td>
+                      <td>{{$product->image}}</td>
+                      <td class="center">
+                        <a href="">
+                          <i class="fa fa-fw fa-pencil" style="color: blue;"></i>
+                        </a>
+                      </td>
+                      <td>
+                        <a href="" class="fa fa-trash" style="color:red" onclick="return confirm('Are you sure?')">
+                        </a>
+                    </td>
+                    </tr>
+                  @endforeach
+                @endif
                 </tbody>
               </table>
             </div>

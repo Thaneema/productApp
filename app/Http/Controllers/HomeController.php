@@ -22,10 +22,6 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    // public function index()
-    // {
-    //     return view('product/index');
-    // }
 
     public function index()
     {
@@ -39,10 +35,39 @@ class HomeController extends Controller
     }
 
     public function store(Request $request)
-    {
-        // Validation logic if needed
-        Product::create($request->all());
-        return redirect()->route('home.index');
+    {   
+        $target_file = NULL;
+        if ($request->hasFile('img')){
+            $target_dir = "product_img/";
+
+            if(is_dir($target_dir) == false){
+
+                mkdir('product_img');
+            }
+
+            $target_file = $target_dir.basename($_FILES["img"]["name"]);
+
+            move_uploaded_file($_FILES["img"]["tmp_name"], $target_file);
+        }
+        
+        $exist = Product::where('name','=',$request->get('product'))->first();
+        if($exist){
+
+            return redirect()->route('home.create')->with('exist', 'Already Exist...');
+
+        
+        }else{
+
+            Product::create([
+                                'name'            => $request->get('product'),
+                                'description'     => $request->get('description'),
+                                'image'           => $target_file,
+                            ]);
+
+        }
+
+
+        return redirect()->route('home.index')->with('save','Saved Successfully.');
     }
 
     public function show($id)

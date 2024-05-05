@@ -9,8 +9,8 @@
           </span>
         </a>
         <ul class="treeview-menu">
-          <li><a href=""><i class="fa fa-circle-o"></i>Product Create</a></li>
-          <li><a href=""><i class="fa fa-circle-o"></i>Product View</a></li>
+          <li><a href="{{ route('home.create') }}"><i class="fa fa-circle-o"></i>Product Create</a></li>
+          <li><a href="{{ route('home.index') }}"><i class="fa fa-circle-o"></i>Product View</a></li>
         </ul>
       </li>
     </ul>
