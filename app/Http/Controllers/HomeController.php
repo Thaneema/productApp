@@ -82,11 +82,69 @@ class HomeController extends Controller
         return view('product.edit', compact('product'));
     }
 
-    public function update(Request $request, $id)
-    {
-        $product = Product::findOrFail($id);
-        $product->update($request->all());
-        return redirect()->route('home.index');
+    // public function update(Request $request, $id)
+    // {
+    //     $product = Product::findOrFail($id);
+    //     $product->update($request->all());
+    //     return redirect()->route('home.index');
+    // }
+    public function update(Request $request)
+    {   
+
+        $product = product::find($request->get('prd_id'));
+        
+        $name    = Product::where('name','=',$request->get('product'))
+                          ->where('id','!=',$product->id)
+                          ->get();
+       
+        if(count($name) > 0){
+
+            return redirect()->route('home.edit', ['home' => $product->id])->with('exist', 'Already Exist...');
+
+        }
+        else{
+
+            $update = Product::where('id','=',$product->id)
+                             ->update([
+                                        'name'            => $request->get('product'),
+                                        'description'     => $request->get('description'),
+                                    ]);
+
+        }
+
+        if($request->get('delete_product') != null){
+            Product::where('id','=',$product->id)
+                   ->update(['image' => NULL]);
+        }
+
+        if ($request->hasFile('img')) {
+            
+            $target_dir = "product_img/";
+
+            $e = Product::find($product->id);
+            if($e->image != NULL){
+                $v = public_path();
+                $h = unlink($v.'/'.$e->image);
+            }
+            
+            if(is_dir($target_dir) == false){
+                mkdir('product_img');
+            }
+
+            $target_file = $target_dir.basename($_FILES["img"]["name"]);
+
+            move_uploaded_file($_FILES["img"]["tmp_name"], $target_file);
+
+            
+            if($request->get('delete_product') != null){
+                $target_file = NULL;
+            }
+
+            Product::where('id','=',$product->id)
+                   ->update(['image' => $target_file]);
+        }
+
+        return redirect()->route('home.index')->with('Update','Updated Successfully..');
     }
 
     public function destroy($id)

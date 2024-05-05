@@ -42,6 +42,14 @@
             </div>
         </div>
     @endif
+    @if(Session::has('Update')) 
+             <div class="box-header with-border">
+               <div class="alert alert-info alert-dismissible">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                Updated Successfully.
+               </div>
+            </div>
+             @endif
         <section class="content">
           <div class="box">
 
@@ -80,7 +88,7 @@
                         </a>
                       </td>
                       <td class="center">
-                        <a href="">
+                        <a href="{{ route('home.edit', ['home' => $product->id]) }}">
                           <i class="fa fa-fw fa-pencil" style="color: blue;"></i>
                         </a>
                       </td>
