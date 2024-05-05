@@ -72,7 +72,7 @@ class HomeController extends Controller
 
     public function show($id)
     {
-        $product = Product::findOrFail($id);
+        $product = Product::find($id);
         return view('product.show', compact('product'));
     }
 

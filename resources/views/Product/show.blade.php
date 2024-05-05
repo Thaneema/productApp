@@ -31,65 +31,29 @@
       <div class="content-wrapper"><br>
         <section class="content-header">
           <h1>
-            Product Details
+            View
           </h1>
         </section>
-        @if(Session::has('save')) 
-        <div class="box-header with-border">
-            <div class="alert alert-success alert-dismissible">
-                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                Saved Successfully.
-            </div>
-        </div>
-    @endif
+       
         <section class="content">
           <div class="box">
-
-            <div class="box-header">
-              <h3 class="box-title">Product List</h3>
-              <u style="float: right;margin-right: 15px">
-                <i class="fa fa-fw fa-plus" style="color: blue;"></i><a href="{{route('home.create')}}" style="font-size: 16px;">New Product</a>
-              </u>
-            </div>
-              
             <div class="box-body">
               <table id="example1" class="table table-bordered table-striped">
                 <thead >
                   <tr>
-                    <th>Sl No.</th>
                     <th>Product Name</th>
                     <th>Description</th>
                     <th>Image</th>
-                    <th>View</th>
-                    <th>Edit</th>
-                    <th>Delete</th>
                   </tr>
                 </thead>
                 <tbody>
                 <?php $c = 1; ?>
-                @if($products)
-                  @foreach($products as $product)
+                @if($product)
                     <tr>
-                      <td>{{$c++}}</td>
                       <td>{{$product->name}}</td>
                       <td>{{$product->description}}</td>
                       <td><img src="{{URL::asset($product->image)}}" id="photo" class="photo" alt="" width="150" height="200"></td>
-                      <td class="center">
-                        <a href="{{ route('home.show', ['home' => $product->id]) }}">
-                        <i class="fa fa-eye" aria-hidden="true"></i>
-                        </a>
-                      </td>
-                      <td class="center">
-                        <a href="">
-                          <i class="fa fa-fw fa-pencil" style="color: blue;"></i>
-                        </a>
-                      </td>
-                      <td>
-                        <a href="" class="fa fa-trash" style="color:red" onclick="return confirm('Are you sure?')">
-                        </a>
-                    </td>
                     </tr>
-                  @endforeach
                 @endif
                 </tbody>
               </table>
