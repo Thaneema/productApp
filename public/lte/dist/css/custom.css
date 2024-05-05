@@ -1,0 +1,11 @@
+table#example1.dataTable tbody tr:hover {
+    background-color: rgb(166, 197, 243);
+  }
+   
+  table#example1.dataTable tbody tr:hover > .sorting_1 {
+    background-color: rgb(166, 197, 243);
+  }
+
+  .selected {
+    background-color: rgb(166, 197, 243);
+  }
