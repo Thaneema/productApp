@@ -93,7 +93,6 @@
                         </div>
                         <div class="box-footer">
                             <div class="pull-left">
-                            <button type="reset" class="btn btn-default">Refresh</button>
                             <button type="submit" class="btn btn-info">Save</button>
                             </div>
                         </div>

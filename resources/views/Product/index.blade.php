@@ -89,7 +89,7 @@
                       <td>{{$c++}}</td>
                       <td>{{$product->name}}</td>
                       <td>{{$product->description}}</td>
-                      <td><img src="{{URL::asset($product->image)}}" id="photo" class="photo" alt="" width="150" height="200"></td>
+                      <td>@if($product->image)<img src="{{URL::asset($product->image)}}" id="photo" class="photo" alt="" width="150" height="200">@else<span>No Image</span>@endif</td>
                       <td class="center">
                         <a href="{{ route('home.show', ['home' => $product->id]) }}">
                         <i class="fa fa-eye" aria-hidden="true"></i>
@@ -101,13 +101,13 @@
                         </a>
                       </td>
                       <td>
-    <a href="{{ route('home.destroy', ['home' => $product->id]) }}" class="fa fa-trash" style="color:red" onclick="event.preventDefault(); if(confirm('Are you sure?')) { document.getElementById('delete-form-{{ $product->id }}').submit(); }">
-    </a>
-    <form id="delete-form-{{ $product->id }}" action="{{ route('home.destroy', ['home' => $product->id]) }}" method="POST" style="display: none;">
-        @csrf
-        @method('DELETE')
-    </form>
-</td>
+                        <a href="{{ route('home.destroy', ['home' => $product->id]) }}" class="fa fa-trash" style="color:red" onclick="event.preventDefault(); if(confirm('Are you sure?')) { document.getElementById('delete-form-{{ $product->id }}').submit(); }">
+                        </a>
+                        <form id="delete-form-{{ $product->id }}" action="{{ route('home.destroy', ['home' => $product->id]) }}" method="POST" style="display: none;">
+                            @csrf
+                            @method('DELETE')
+                        </form>
+                      </td>
                     </tr>
                   @endforeach
                 @endif

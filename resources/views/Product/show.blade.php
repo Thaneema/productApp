@@ -52,7 +52,7 @@
                     <tr>
                       <td>{{$product->name}}</td>
                       <td>{{$product->description}}</td>
-                      <td><img src="{{URL::asset($product->image)}}" id="photo" class="photo" alt="" width="150" height="200"></td>
+                      <td>@if($product->image)<img src="{{URL::asset($product->image)}}" id="photo" class="photo" alt="" width="150" height="200">>@else<span>No Image</span>@endif</td>
                     </tr>
                 @endif
                 </tbody>
